@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>天眼安全设备</title>
+      <link href="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/"/>
+      <url>/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/</url>
+      
+        <content type="html"><![CDATA[<h1 id="天眼（天眼新一代安全感知系统，高级检测溯源的产品）"><a href="#天眼（天眼新一代安全感知系统，高级检测溯源的产品）" class="headerlink" title="天眼（天眼新一代安全感知系统，高级检测溯源的产品）"></a>天眼（天眼新一代安全感知系统，高级检测溯源的产品）</h1><h2 id="天眼的功能"><a href="#天眼的功能" class="headerlink" title="天眼的功能"></a>天眼的功能</h2><p>发现、分析、溯源</p><p>发现网络的攻击行为并结合其他的安全设备进行 及时阻断网络攻击并对攻击成功的事件进行一个溯源分析</p><p>检测、响应、溯源</p><h2 id="天眼的构造"><a href="#天眼的构造" class="headerlink" title="天眼的构造"></a>天眼的构造</h2><p>分析平台：存储全量的一个日志和结果（大型数据库，存储流量传感器的流量）提供了一个面向客户的交互式的页面</p><p>流量传感器:接受流量的镜像全量还原成流量日志</p><p>文件威胁鉴定器：和流量传感器进行联动，收集流量传感器上的文件，配合检索引擎去进行文件的告警分析</p><p>沙箱</p><h2 id="部署场景"><a href="#部署场景" class="headerlink" title="部署场景"></a>部署场景</h2><p>流量传感器     部署在服务器区以及办公区，将告警日志和网络日志发送给分析平台</p><p>文件威胁鉴定器 接受流量传感器的文件及文件日志，将文件日志发送给分析平台（沙箱）</p><p>分析平台   将威胁情报发送给云端大数据平台威胁情报中心</p><p>注：天眼威胁监测与分析系统(SkyEye)的各个组件均采取旁路部署的模式，组成一个独立的网络，不会和用户本身的网络产生交集</p><h2 id="流量传感器平台"><a href="#流量传感器平台" class="headerlink" title="流量传感器平台"></a>流量传感器平台</h2><p>主要对网络流量进行解码，还原真实的流量、提取网络层、传输层、应用层的头部流量或者一些负载信息，对流量中的文件去进行一个还原，这些信息通过加密渠道发送或者威胁鉴定器里进行统一的处理、支持ipv4和ipv6</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575156028.png" alt="1719575156028"></p><p>状态监听包括：设备连接状态、设备列表、资源占用、系统信息、授权信息、攻击规则信息、威胁情报信息、网络流量、应用流量、数据采集、会话监控、文件类型统计、日志外发统计。</p><p>解码小工具</p><p>在【威胁告警】-【详情】因为在告警详情中，对于url编码、base64编码、以及各种中文编码，浏览器不能提供直接的转义功能，导致部分告警分析存在困难，所以提供此小工具对各种编码内容进行转义。</p><p>【威胁告警】-【告警列表】展示网页漏洞利用、webshe11上传、网络攻击、威胁情报4种类型的所有告警。</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575293470.png" alt="1719575293470"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575431437.png" alt="1719575431437"></p><p>规则配置</p><p>【规则配置】模块提供【网页漏洞利用】、【webshell上传】、【网络攻击】、【自定义规则】配置管理功能，支持查询、启停，自定义规则配置等操作。提供规则的规则编号、规则名称、威胁等级、规则分类、启用状态的筛选过滤，过滤查询字段之间可以进行组合查询。并支持单条规则启用、关闭以及对选中的规则进行批量启用、关闭的操作。同时提供了对每条规则详情的查看操作。</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575540837.png" alt="1719575540837"></p><p>【规则配置】一【自定义规则】分为两个模块，其中包含漏洞规则、威胁情报。</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575626255.png" alt="1719575626255"></p><p>自定义规则可进行导入导出</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575665906.png" alt="1719575665906"></p><p>威胁检测</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575759490.png" alt="1719575759490"></p><p>开启xff,可进行识别源ip</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575847085.png" alt="1719575847085"></p><p>弱口令可进行正则匹配</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575971162.png" alt="1719575971162"></p><p>流量记录</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576022092.png" alt="1719576022092"></p><p>文件还原（文件最大不能超过五十mb）</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576149467.png" alt="1719576149467"></p><p>抓包检测</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576238154.png" alt="1719576238154"></p><p>旁路阻断</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576328533.png" alt="1719576328533"></p><p>ssl解密，专门针对https</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576615040.png" alt="1719576615040"></p><p>白名单配置</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576718811.png" alt="1719576718811"></p><p>系统管理</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576780954.png" alt="1719576780954"></p><p>升级配置 （建议自动更新）</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576833922.png" alt="1719576833922"></p><p>数据传输数据</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577060799.png" alt="1719577060799"></p><p>snmp管理</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577099335.png" alt="1719577099335"></p><p>安全性配置</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577181717.png" alt="1719577181717"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577238499.png" alt="1719577238499"></p><p>敏感操作密码</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577312483.png" alt="1719577312483"></p><p>单点登录密匙</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577350110.png" alt="1719577350110"></p><p>账号管理</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577530241.png" alt="1719577530241"></p><p>操作审计</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577607883.png" alt="1719577607883"></p><h2 id="天眼分析平台"><a href="#天眼分析平台" class="headerlink" title="天眼分析平台"></a>天眼分析平台</h2><p>提供了一个全面的溯源分析能力，</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719578578628.png" alt="1719578578628"></p><p>存储日志分为三种</p><p>告警日志</p><p>来自探针（记录双向完整绘画，例如不存在恶意攻击流量则不会保留流量，而是记录流量的关键信息（http请求的状态码），形成网络日志存储）和沙箱的告警</p><p>网络日志</p><p>终端日志</p><p>存储天眼的终端日志，记录了mac地址，dns信息，进程端口信息</p><p>和传感器的区别</p><p>传感器同时也能存储报警日志，但是传感器的磁盘空间没有分析平台大，当流量攻击日志达到特定的值，旧的日志会进行覆盖</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719579604567.png" alt="1719579604567"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719579640598.png" alt="1719579640598"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719579674412.png" alt="1719579674412"></p><h2 id="文件威胁鉴定器"><a href="#文件威胁鉴定器" class="headerlink" title="文件威胁鉴定器"></a>文件威胁鉴定器</h2><p>传感器将文件日志传入文件威胁鉴定器，经过静态检测，动态检测，行为分析</p><h2 id="常见协议字段和语法"><a href="#常见协议字段和语法" class="headerlink" title="常见协议字段和语法"></a>常见协议字段和语法</h2><p>分析中心搜索</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719583038900.png" alt="1719583038900"></p><p>搜索语法：字段名称，项以及运算符</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719583242628.png" alt="1719583242628"></p><p>可使用通配符查询(?)，范围查询（to）,使用\进行转义</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719583335797.png" alt="1719583335797"> </p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719585560611.png" alt="1719585560611"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719585987177.png" alt="1719585987177"></p><h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719586218601.png" alt="1719586218601"></p><p>tcp分成七块</p><p>数据分片 发送端进行分片，在接收端进行重组 、由tcp确认分片的大小，控制分片进行重组</p><p>到达确认 就是接收端接收到了这个分片的数据的时候，然后根据片的数据的这个序号，去向发送端去确认发一个确认请求</p><p>超时重发</p><p>就是发送方如果说在发送分片的时候，启动了这个超时的这个定时器，没有收到相应的确认</p><p>滑动窗口 TCP接收缓空间的这个大小都是固定的，接收端只允许另一端去发送过来的缓冲区所能接受的数据</p><p>时序处理 传输过程中，丢失了顺序，将分片重新进行排序，以正确的数据提交给这个应用层</p><p>重复处理 数据分片可能会发送重复，tcp丢掉重复的数据</p><p>数据校验 检测端到端数据有没有发生变化</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587085756.png" alt="1719587085756"></p><h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587075133.png" alt="1719587075133"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587157361.png" alt="1719587157361"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587190182.png" alt="1719587190182"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587252832.png" alt="1719587252832"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587272730.png" alt="1719587272730"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587359939.png" alt="1719587359939"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587443598.png" alt="1719587443598"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587469776.png" alt="1719587469776"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587513796.png" alt="1719587513796"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587856375.png" alt="1719587856375"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587889261.png" alt="1719587875906"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587907454.png" alt="1719587907454"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587919911.png" alt="1719587919911"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587935193.png" alt="1719587935193"></p><h2 id="常见面试题目"><a href="#常见面试题目" class="headerlink" title="常见面试题目"></a>常见面试题目</h2><p>1.在天眼分析平台网络协议中sip、dip、sport、dport字段表示的含义是什么？<br>sip 源IP、dip 目的IP、sport 源端口、dport 目的端口</p><p>2.在天眼分析平台DNS协议中dns type字段表示的含义是?<br>dns type表示DNS请求类型 0代表DNS请求，1代表DNS响应</p><p>3.dns_type中addr代表什么？<br>表示该host对应的IP地址信息；可能有多个记录</p><p>4.天眼可以捕捉到cmd命令嘛？<br>可以捕捉到远程执行的，比如攻击者远控你内网机器，执行cmd并返回结果</p><p>5.天眼告警可以显示的结果，除了成功和失败还有什么嘛？<br>成功、失败、尝试、未知</p><p>未知：一般是告警生成错误了，可以忽略</p><p>尝试：是可能成功也可能失败， 需要全部分析</p><p>6.内网横向有哪些告警类型？<br>cs相关告警、隧道类告警、内网段的漏洞扫描、暴力破解</p><p>内网主机对内部其他主机的攻击行为，该主机可能被黑客控制沦为跳板机，企图控制更多的内网其他主机</p><p>7.使用天眼，如何判断资产是否失陷？<br>受害资产不断外联恶意地址，受害资产有shell连接或者隧道类的告警</p><p>8.出现受害ip为源的时候是什么情况?<br>当网络攻击者使用IP欺骗或伪造技术时，可能会发生受害IP为源的情况</p><p>9.在天眼分析中，威胁告警检索字段中 attack sip 字段表示的含义是什么?<br>攻击者IP</p><p>10.在天眼分析平台中,proto字段表示的含义是? 举两个邮件应用协议的例子<br>proto表示协议，邮件应用协议有ETP POPIMAP</p><p>11.在天眼分析平台中，IOC代表什么含义、反映？<br>IOC表示匹配成功的威胁情报</p><p>IOC反映主机或网络失陷特征信息，包括入侵工具、恶意软件和攻击者的属性</p><p>12.天眼中搜索一个日志里指定的端口？想把两个端口连接在一起查询？<br>sport eq 80</p><p>sport eq 80 or sport eq 443</p><p>13.一个告警的目的ip是114.114.114，端口是53，这样的告警，我应该对他的ip和端口进行封禁吗?<br>不能封禁，明显是dns服务器转发的地址和端口，需要进一步确认真实受害资产的ip信息</p><p>14.在天眼分析平台中，如何搜索源IP为A，目的IP为B的网络日志?运算符(AND)是大写还是小写?<br>ip(A) AND dip(B)</p><p>运算符需要大写</p><p>15.在天眼分析平台中，运算符都有哪些？<br>AND OR NOT</p><p>16.天眼分析平台中，发件人的字段是什么？<br>from</p><p>17.天眼分析平台模糊搜索，应该怎么写查询语句?<br>直接在日志检索模块去搜索你要输入的关键字</p><p>使用*加部分名称进行检索</p><p>18.GEO字段代表什么？<br>代表ip对应的地理位置</p><p>19.不出网的主机通过哪种代理方式建立连接？<br>正向代理</p><p>20天眼能捕捉到0day吗？<br>可以，需要通过日志去分析挖掘</p><p>21.天眼里的小工具用过吗？<br>用过，可以做一些常见编码的解码等，比如base64解码、url解码</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 安全设备 </tag>
+            
+            <tag> 天眼 </tag>
+            
+            <tag> TCP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>shiro漏洞及原理</title>
+      <link href="/2024/06/22/shiro%E6%BC%8F%E6%B4%9E%E5%8F%8A%E5%8E%9F%E7%90%86/"/>
+      <url>/2024/06/22/shiro%E6%BC%8F%E6%B4%9E%E5%8F%8A%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>shiro漏洞及原理</p><p>shiro是什么</p><p><strong>Apache Shiro</strong>框架是一个功能强大且易于使用的 Java 安全框架，它执行身份验证、授权、加密和会话管理。借助 Shiro 易于理解的 API，您可以快速轻松地保护任何应用程序——从最小的移动应用程序到最大的 Web 和企业应用程序。</p><p>shiro的漏洞原理</p><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会将用户信息加密，加密过程:用户信息&#x3D;&gt;序列化&#x3D;&gt;AES加密&#x3D;&gt;base64编码&#x3D;&gt;RememberMe Cookie值。如果用户勾选记住密码，那么在请求中会携带cookie，并且将加密信息存放在cookie的rememberMe字段里面，在服务端收到请求对rememberMe值，先base64解码然后AES解密再反序列化，这个加密过程如果我们知道AES加密的密钥，那么我们把用户信息替换成恶意命令，就导致了反序列化RCE漏洞。在shiro版本&lt;&#x3D;1.2.4中使用了默认密钥kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;，这就更容易触发RCE漏洞。<br>所以我们Payload产生的过程：<br>命令&#x3D;&gt;序列化&#x3D;&gt;AES加密&#x3D;&gt;base64编码&#x3D;&gt;RememberMe Cookie值</p><p><strong>漏洞验证</strong><br>未登录的情况下，请求包的cookie中没有rememberMe字段，返回包set-Cookie里也没有deleteMe字段<br>登录失败的话，不管有没有勾选RememberMe字段，返回包都会有 rememberMe&#x3D; deleteMe 字段<br>不勾选RememberMe，登录成功的话，返回包set-Cookie里有rememberMe&#x3D;deleteMe字段。但是之后的所有请求中Cookie都不会有RememberMe字段<br>勾选RememberMe，登录成功的话，返回包set-Cookie里有rememberMe&#x3D;deleteMe字段，还会有remember 字段，之后的所有请求中Cookie都会有rememberMe字段<br>或者可以在cookie后面自己加一个rememberMe&#x3D;1,看返回包有没有rememberMe&#x3D; deleteMe</p><p><strong>shrio550和721的区别</strong><br>主要区别在于Shiro550使用已知默认密码，只要有足够的密码，不需要Remember Cookie的<br>Shiro721的ase加密的key为系统随机生成，需要利用登录后的rememberMe去爆破正确的key值。<br>利用有效的RememberMe Cookie作为Padding Oracle Attack的前缀，再去构造反序列化攻击。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 框架漏洞 </tag>
+            
+            <tag> shiro </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Fastjson的原理</title>
+      <link href="/2024/06/22/2024-06-22-Fastjson%E7%9A%84%E5%8E%9F%E7%90%86/"/>
+      <url>/2024/06/22/2024-06-22-Fastjson%E7%9A%84%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>是什么</p><p>json：Json是一种轻量级的数据交换格式，应该在一个程序员的开发生涯中是常接触的。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。</p><p>例子：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​        &quot;name&quot;:&quot;BossFrank&quot;,</span><br><span class="line"></span><br><span class="line">​        &quot;age&quot;:23,</span><br><span class="line"></span><br><span class="line">​        &quot;media&quot;:[&quot;CSDN&quot;,&quot;bilibili&quot;,&quot;Github&quot;]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Fastjson：是一个Java库，可用于将Java对象转换为其JSON表示。它还可用于将JSON字符串转换为等效的Java对象。<strong>Fastjson可以处理任意Java对象，包括您没有源代码的预先存在的对象</strong>。</p><p>Fastjson漏洞的形成</p><p><strong>fastjson的漏洞本质还是一个java的<a href="https://so.csdn.net/so/search?q=%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E&spm=1001.2101.3001.7020">反序列化漏洞</a>，由于引进了AutoType功能，fastjson在对json字符串反序列化的时候，会读取到@type的内容，将json内容反序列化为java对象并调用这个类的setter方法。</strong></p><p><strong>fastjson在序列化以及反序列化的过程中并没有使用Java自带的序列化机制，而是自定义了一套机制</strong></p><p>对于JSON框架来说，想要把一个Java对象转换成字符串有两种方法</p><p>1.基于setter&#x2F;getter</p><p>2.基于属性（AutoType）</p><p>基于setter&#x2F;getter</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Apple implements Fruit &#123;</span><br><span class="line">    private Big_Decimal price;</span><br><span class="line">    //省略 setter/getter、toString等</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class iphone implements Fruit &#123;</span><br><span class="line">    private Big_Decimal price;</span><br><span class="line">    //省略 setter/getter、toString等</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当一个类只有一个接口的时候，将这个类的对象序列化的时候，就会将子类抹去，只保留接口的类型，最后导致反序列化时无法得到原始类型。本例中，将两个json再反序列化生成java对象的时候，无法区分原始类是否是别的子类。</p><p>基于AutoType</p><p>为了解决上述问题： fastjson引入了基于属性（AutoType），即在序列化的时候，先把原始类型记录下来<br>{ “fruit”:{ “@type”:”com.hollis.lab.fastjson.test.Apple”, “price”:0.5 } }</p><p>引入AutoType后，iphone类对象序列化为json格式后为：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123; &quot;fruit&quot;:&#123; &quot;@type&quot;:&quot;com.hollis.lab.fastjson.test.iphone&quot;, &quot;price&quot;:5000 &#125; &#125;</span><br></pre></td></tr></table></figure><p>漏洞原理</p><p>使用AutoType功能进行序列号的JSON字符会带有一个@type来标记其字符的原始类型，在反序列化的时候会读取这个@type，来试图把JSON内容反序列化到对象，并且会调用这个库的setter或者getter方法，然而，@type的类有可能被恶意构造，只需要合理构造一个JSON，使用@type指定一个想要的攻击类库就可以实现攻击。</p><p>漏洞利用流程</p><p>攻击者（我们）访问存在fastjson漏洞的目标靶机网站，通过burpsuite抓包改包，以json格式添加com.sun.rowset.JdbcRowSetImpl恶意类信息发送给目标机。<br>存在漏洞的靶机对json反序列化时候，会加载执行我们构造的恶意信息(访问rmi服务器)，靶机服务器就会向rmi服务器请求待执行的命令。也就是靶机服务器问rmi服务器，（靶机服务器）需要执行什么命令啊？<br>rmi 服务器请求加载远程机器的class（这个远程机器是我们搭建好的恶意站点，提前将漏洞利用的代码编译得到.class文件，并上传至恶意站点），得到攻击者（我们）构造好的命令（ping dnslog或者创建文件或者反弹shell啥的）rmi将远程加载得到的class（恶意代码），作为响应返回给靶机服务器。<br>靶机服务器执行了恶意代码，被攻击者成功利用。<br><img src="/2024/06/22/2024-06-22-Fastjson%E7%9A%84%E5%8E%9F%E7%90%86/Users\31055\Desktop\fastjosn\1719025936008.png" alt="1719025936008"></p><p>拓展：</p><p>fastjson不出网怎么利用</p><p>apache-BCEL，直接传入字节码不需要出网就可执行恶意代码但是需要引入tomcat的依赖，但在实际攻击中还算是比较常见的。</p><p>fastjson不出网利用<br>fastjson≤1.2.24</p><p>条件:BasicDataSource只需要有dbcp或tomcat-dbcp的依赖即可，dbcp即数据库连接池，在java中用于管理数据库连接，还是挺常见的。</p><p>参考链接：</p><p><a href="https://blog.csdn.net/Bossfrank?type=blog">Boss_frank-CSDN博客</a></p><p>[fastjson反序列化漏洞演示加详细讲解加原理_哔哩哔哩_bilibili</p><p><a href="https://blog.csdn.net/weixin_49248030/article/details/127989449">fastjson-BCEL不出网打法原理分析_fastjson不出网是什么-CSDN博客</a>](<a href="https://www.bilibili.com/video/BV1Ab4y1d7w1/?vd_source=e52c0be348f431bd52ecb6f73987ebbd">https://www.bilibili.com/video/BV1Ab4y1d7w1/?vd_source=e52c0be348f431bd52ecb6f73987ebbd</a>)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 框架漏洞 </tag>
+            
+            <tag> fastjson </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一个网站的测试思路</title>
+      <link href="/2024/06/16/2024-06-16-%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99%E7%9A%84%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/"/>
+      <url>/2024/06/16/2024-06-16-%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99%E7%9A%84%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/</url>
+      
+        <content type="html"><![CDATA[<p>一、未授权访问</p><p>findsometing 提取接口，如果对js比较熟悉，可以在js里搜索接口</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 思路技巧 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记一次cnvd渗透</title>
+      <link href="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/"/>
+      <url>/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/</url>
+      
+        <content type="html"><![CDATA[<p>前言：挖src挖郁闷了，闲来无事选择挖一个cnvd来练练手，本次的漏洞都没啥难度，企查查资产过了5000万</p><p>说一下cnvd证书的下放标准</p><p>对于中危及中危以上通用型漏洞（CVSS2.0基准评分超过4.0分），以及涉及党政机关、重要行业单位、科研院所、重要企事业单位（如：中央国有大型企业、部委直属事业单位等）的高危事件型漏洞(后续对事件型漏洞证明颁发标准将参考中央网信办颁布的关键基础设施相关定义和分类)，CNVD将给予原创漏洞证明（即CNVD漏洞证书，电子版），该证明可通过编号在CNVD官方网站进行查询跟踪。时限要求：按周对上一周归档漏洞且满足证书颁发条件的进行批量制作。</p><p>事件型：高危 重要机构<br>通用型：中危及以上（评分4.0） 注册资金5000w以上，黑盒的测试案例10或以上（3复现+7其他案例，其他案例不要求复现），白盒的得有源码以及提供漏洞处代码调试过程，包含截图和原因。</p><p>过程：</p><p>fofa寻找目标</p><p>app&#x3D;”xx目标系统”</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552039297.png" alt="1717552039297"></p><p>admin ,123456 成功登录管理员用户（弱口令yyds）</p><p>RCE</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552211132.png" alt="1717552211132"></p><p>发现这里有一个ping 的功能，我想这里应该会存在rce漏洞</p><p>ping 127.0.0.1 -c 4 ;whoami （成功rce）</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552367582.png" alt="1717552367582"></p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552712988.png" alt="1717552712988"></p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717553182331.png" alt="1717553182331"></p><p>越权</p><p>&#96;POST xxxxxxxxx        HTTP&#x2F;1.1<br>Host: xxxxx<br>Content-Length: 180<br>Accept: application&#x2F;json, text&#x2F;plain, <em>&#x2F;</em><br>User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;125.0.0.0 Safari&#x2F;537.36<br>Content-Type: application&#x2F;json;charset&#x3D;UTF-8<br>Origin: xxxxxxxxxxxxxxxxxxxx<br>Referer: xxxxxxxxxxxxxxxx<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q&#x3D;0.9<br>Connection: close</p><p>{“jsonrpc”:”2.0”,”method”:”call”,”params”:[“635F7A20A38A4072899C14B3535CFBF5”,”admin”,”sessionAddUser”,{“username”:”123456”,”password”:”554e36b4db2bc61b606ca16e756b1f7d”}],”id”:11}&#96;</p><p>这里将admin，换成任意用户即可添加成功</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717553127082.png" alt="1717553127082"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 渗透实例 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CNVD </tag>
+            
+            <tag> 越权 </tag>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小程序抓包详细教程</title>
+      <link href="/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
+      <url>/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>前言：关于小程序抓包一直想写出一个比较详细的教程</p><p>实验设备：</p><p>​微信: <a href="https://windows.weixin.qq.com/?lang=zh_CN">https://windows.weixin.qq.com/?lang=zh_CN</a></p><p>​Proxifier：<a href="https://www.proxifier.com/download/">https://www.proxifier.com/download/</a>   (需要挂梯子访问下载)</p><p>​burpsuite：<a href="https://portswigger.net/burp/communitydownload">https://portswigger.net/burp/communitydownload</a> (这里链接的是社区版的，破解版可以去吾爱下载)</p><p>上续操作都完成</p><p>1.打开proxifier portable -&gt;profile -&gt; proxy servers-&gt;add  -&gt;添加本地的端口和ip，选择https</p><p>2.打开proxifier portable -&gt;profile -&gt;proxification rules   -&gt;这里需要配置一些规则</p><p><img src="/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%851.png" alt="小程序抓包1">)</p><p>3.设置-&gt;网络和internet-&gt;手动设置代理-&gt;编辑-&gt;将burp的代理端口配置上去（这里默认你的burp已经装好，证书已经导到浏览器）</p><p>4.burp设置 (正常配置即可)</p><p>实例演示：</p><p>微信打开小米汽车的小程序</p><p>在登录的同时抓包，正常抓包</p><hr><p><img src="/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%852.png" alt="小程序抓包2"></p><p>原理：proxifier portable代理了本机全部流量，用规则只保留微信和小程序的流量，按正常配置可以抓到本机任意流量，将流量导入burp,由burp来控制流量</p><p>自己试试看，你也能做到~~~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 关于抓包两三事 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 小程序抓包 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第一个博客发表啦</title>
+      <link href="/2024/06/02/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2024/06/02/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<p>今天是2024年6月2日，终于整好了这个博客，太开心了。会在上面记录自己一年的点点滴滴，一年的时间我会成为什么样子呢？应该会成为一个挖掘src的小case吧，也或许成功升本成功，再就是一个什么也不会的安服。</p><p>加油~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 闲言碎语 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 成长 </tag>
+            
+            <tag> 反省 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
